@@ -11,7 +11,7 @@ router.get('/tweets', asyncHandler(async(req, res) => {
 
 router.get('/tweets/:id(\\d+)', asyncHandler(async(req, res) => {
   const tweet = await Tweet.findByPK(req.params.id)
-  res.json(tweet)
+  res.json(tweet);
 }))
 
 
