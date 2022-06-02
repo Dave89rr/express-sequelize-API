@@ -1,13 +1,14 @@
-const express = require("express");
-const morgan = require("morgan");
+const express = require('express');
+const morgan = require('morgan');
 const { environment } = require('./config');
 const app = express();
+const indexRouter = require('./routes');
+const tweetsRouter = require('./routes/tweet');
 
-app.use(morgan("dev"));
-
-app.get("/", (req, res) => {
-  res.send("Welcome to the express-sequelize-starter!");
-});
+app.use(express.json());
+app.use(morgan('dev'));
+app.use(indexRouter);
+app.use(tweetsRouter);
 
 // Catch unhandled requests and forward to error handler.
 app.use((req, res, next) => {
@@ -21,9 +22,9 @@ app.use((req, res, next) => {
 // Generic error handler.
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
-  const isProduction = environment === "production";
+  const isProduction = environment === 'production';
   res.json({
-    title: err.title || "Server Error",
+    title: err.title || 'Server Error',
     message: err.message,
     stack: isProduction ? null : err.stack,
   });
