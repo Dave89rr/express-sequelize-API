@@ -13,10 +13,13 @@ const tweetNotFoundError = (id) => {
   return err;
 };
 
-router.get('/tweets/:id(\\d+)', asyncHandler(async(req, res) => {
-  const tweet = await Tweet.findByPK(req.params.id)
-  res.json(tweet);
-}))
+router.get(
+  '/tweets',
+  asyncHandler(async (req, res) => {
+    const allTweets = await Tweet.findAll();
+    res.json(allTweets);
+  })
+);
 
 router.get(
   '/tweets/:id(\\d+)',
