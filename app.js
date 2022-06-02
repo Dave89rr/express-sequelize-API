@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const { environment } = require('./config');
 const app = express();
 const indexRouter = require('./routes');
-const tweetsRouter = require('./routes/tweet');
+const tweetsRouter = require('./routes/tweets');
 
 app.use(express.json());
 app.use(morgan('dev'));
