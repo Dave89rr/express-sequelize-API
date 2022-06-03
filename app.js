@@ -4,9 +4,11 @@ const { environment } = require('./config');
 const app = express();
 const indexRouter = require('./routes');
 const tweetsRouter = require('./routes/tweets');
+const cors = require('cors');
 
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cors({ origin: 'http://localhost:4000' }));
 app.use(indexRouter);
 app.use(tweetsRouter);
 
@@ -26,6 +28,7 @@ app.use((err, req, res, next) => {
   res.json({
     title: err.title || 'Server Error',
     message: err.message,
+    errors: err.errors,
     stack: isProduction ? null : err.stack,
   });
 });
